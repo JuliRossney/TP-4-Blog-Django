@@ -1,194 +1,110 @@
-<!DOCTYPE html> {% load static %}
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Juli</title>
-    <link rel="icon" href="{% static 'portfolio/flor.png' %}" type="image/png">
-    <!-- ESTILOS Y FUENTES -->
-    <link rel="stylesheet" href="{% static 'portfolio/styles.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Cookie&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-
-<body>
-    <!-- ENCABEZADO -->
-    <header>
-        <nav class="navbar">
-            <h1 class="nombre-animado">Julieta</h1>
-            <ul>
-                <li><a href="#sobre-mi">Sobre mí</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-                <li><button id="modo-btn" onclick="toggleModo()"><i class="fas fa-moon"></i></button></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- CONTENIDO PRINCIPAL -->
-    <main>
-        <!-- Sección Sobre mí -->
-        <section id="sobre-mi">
-            <div class="particles"></div>
-            <div class="sobre-mi-container">
-                <div class="sobre-mi-texto">
-                    <h2 class="titulo-bounce">Sobre mí</h2>
-                    <div class="texto-interactivo">
-                        <p class="parrafo-hover">¡Hola! Soy <span class="destacado">Julieta</span> 👋</p>
-                        <p class="parrafo-hover">Me gusta <span class="palabra-color">programar</span>, y meterme en proyectos donde pueda crear cosas desde cero..</p>
-                        <p class="parrafo-hover">Además, me interesa combinar la programación con el diseño para hacer cosas lindas y funcionales.✨</p>
+{% extends 'portfolio/base.html' %}
+{% load static %}
+{% block content %}
+<!-- Sección Sobre mí -->
+<section id="sobre-mi">
+    <div class="particles"></div>
+    <div class="sobre-mi-container">
+        <div class="sobre-mi-texto">
+            <h2 class="titulo-bounce">Sobre mí</h2>
+            <div class="texto-interactivo">
+                <p class="parrafo-hover">¡Hola! Soy <span class="destacado">Julieta</span> 👋</p>
+                <p class="parrafo-hover">Me gusta <span class="palabra-color">programar</span>, y meterme en proyectos donde pueda crear cosas desde cero..</p>
+                <p class="parrafo-hover">Además, me interesa combinar la programación con el diseño para hacer cosas lindas y funcionales.✨</p>
+            </div>
+            
+            <!-- Datos curiosos interactivos -->
+            <div class="datos-curiosos">
+                <h3>Algunos datos sobre mí:</h3>
+                <div class="tarjetas-datos">
+                    <div class="tarjeta-dato" onclick="this.classList.toggle('flip')">
+                        <div class="tarjeta-inner">
+                            <div class="tarjeta-front">
+                                <span class="emoji">📖</span>
+                                <p>Estudio</p>
+                            </div>
+                            <div class="tarjeta-back">
+                                <p>Curso 4to año en I.I.L.A.H. Computación</p>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Datos curiosos interactivos -->
-                    <div class="datos-curiosos">
-                        <h3>Algunos datos sobre mí:</h3>
-                        <div class="tarjetas-datos">
-                            <div class="tarjeta-dato" onclick="this.classList.toggle('flip')">
-                                <div class="tarjeta-inner">
-                                    <div class="tarjeta-front">
-                                        <span class="emoji">📖</span>
-                                        <p>Estudio</p>
-                                    </div>
-                                    <div class="tarjeta-back">
-                                        <p>Curso 4to año en I.I.L.A.H. Computación</p>
-                                    </div>
-                                </div>
+                    <div class="tarjeta-dato" onclick="this.classList.toggle('flip')">
+                        <div class="tarjeta-inner">
+                            <div class="tarjeta-front">
+                                <span class="emoji">💻</span>
+                                <p>Curso</p>
                             </div>
-                            
-                            <div class="tarjeta-dato" onclick="this.classList.toggle('flip')">
-                                <div class="tarjeta-inner">
-                                    <div class="tarjeta-front">
-                                        <span class="emoji">💻</span>
-                                        <p>Curso</p>
-                                    </div>
-                                    <div class="tarjeta-back">
-                                        <p>Curso de CISCO finalizado</p>
-                                    </div>
-                                </div>
+                            <div class="tarjeta-back">
+                                <p>Curso de CISCO finalizado</p>
                             </div>
-                            
-                            <div class="tarjeta-dato" onclick="this.classList.toggle('flip')">
-                                <div class="tarjeta-inner">
-                                    <div class="tarjeta-front">
-                                        <span class="emoji">⌨</span>
-                                        <p>xd</p>
-                                    </div>
-                                    <div class="tarjeta-back">
-                                        <p>Conocimiento básico de Python</p>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tarjeta-dato" onclick="this.classList.toggle('flip')">
+                        <div class="tarjeta-inner">
+                            <div class="tarjeta-front">
+                                <span class="emoji">⌨</span>
+                                <p>xd</p>
+                            </div>
+                            <div class="tarjeta-back">
+                                <p>Conocimiento básico de Python</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- Espacio para tu imagen -->
-                <div class="imagen-container">
-                    <div class="imagen-placeholder">
-                        <div class="imagen-marco">
-                            <img src="{% static 'portfolio/foto1.jpeg' %}" alt="Foto de Julieta - Desarrolladora Web">
-                        </div>
-                    </div>
+            </div>
+        </div>
+        
+        <!-- Espacio para tu imagen -->
+        <div class="imagen-container">
+            <div class="imagen-placeholder">
+                <div class="imagen-marco">
+                    <img src="{% static 'portfolio/foto1.jpeg' %}" alt="Foto de Julieta - Desarrolladora Web">
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
-        <!-- Sección Proyectos -->
-        <section id="proyectos">
-            <div class="proyectos-contenido">
-                <h2>Mis Proyectos</h2>
-                <div class="galeria-proyectos">
-                    <div class="proyecto" data-tecnologia="python">
-                        <h3>Space Invaders</h3>
-                        <img src="{% static 'portfolio/space.png' %}" alt="Captura Space Invaders">
-                        <p>Mi primer juego en Python usando Pygame.</p>
-                        <a href="https://github.com/JuliRossney/TP-1-Space-Invaders.git" target="_blank">Ver repositorio</a>
-                    </div>
-                    <div class="proyecto" data-tecnologia="photoshop">
-                        <h3>Ediciones Photoshop</h3>
-                        <img src="{% static 'portfolio/photoshop.jfif' %}" alt="Edición Photoshop 1">
-                        <p>Algunas ediciones que hice en Photoshop.</p>
-                        <a href="https://drive.google.com/drive/folders/14JCUEIWlbiyfrCkK1Rv-WI-9vlVU93Nc?usp=sharing" target="_blank">Ver carpeta Google Drive</a>
-                    </div>
+<!-- Sección Proyectos -->
+<section id="proyectos">
+    <div class="proyectos-contenido">
+        <h2>Mis Proyectos</h2>
+        <div class="galeria-proyectos">
+            <div class="proyecto" data-tecnologia="python">
+                <h3>Space Invaders</h3>
+                <img src="{% static 'portfolio/space.png' %}" alt="Captura Space Invaders">
+                <p>Mi primer juego en Python usando Pygame.</p>
+                <a href="https://github.com/JuliRossney/TP-1-Space-Invaders.git" target="_blank">Ver repositorio</a>
             </div>
-        </section>
-
-        <!-- Sección Contacto -->
-        <section id="contacto" class="contacto">
-            <h2><u>Contactáme</u></h2>
-            <form onsubmit="mostrarMensajeExito(); return false;">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" class="form-input" required>
-
-                <label for="email">Correo electrónico:</label>
-                <input type="email" id="email" name="email" class="form-input" required>
-
-                <label for="mensaje">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" rows="5" class="form-input" required></textarea>
-
-                <button type="submit">Enviar</button>
-            </form>
-            <div class="mensaje-exito oculto" id="mensaje-exito">
-                <p>¡Mensaje enviado! 💌</p>
+            <div class="proyecto" data-tecnologia="photoshop">
+                <h3>Ediciones Photoshop</h3>
+                <img src="{% static 'portfolio/photoshop.jfif' %}" alt="Edición Photoshop 1">
+                <p>Algunas ediciones que hice en Photoshop.</p>
+                <a href="https://drive.google.com/drive/folders/14JCUEIWlbiyfrCkK1Rv-WI-9vlVU93Nc?usp=sharing" target="_blank">Ver carpeta Google Drive</a>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
+<!-- Sección Contacto -->
+<section id="contacto" class="contacto">
+    <h2><u>Contactáme</u></h2>
+    <form onsubmit="mostrarMensajeExito(); return false;">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" class="form-input" required>
 
-<!-- SCRIPTS -->
-<script>
-    
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" class="form-input" required>
 
-    function filtrarProyectos(tecnologia) {
-        document.querySelectorAll('.proyecto').forEach(p => {
-            p.style.display = (tecnologia === 'todos' || p.dataset.tecnologia === tecnologia) ? 'block' : 'none';
-        });
-    }
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="5" class="form-input" required></textarea>
 
-    function mostrarMensajeExito() {
-        const mensaje = document.getElementById("mensaje-exito");
-        mensaje.classList.remove("oculto");
-        mensaje.classList.add("visible");
-        setTimeout(() => {
-            mensaje.classList.remove("visible");
-            mensaje.classList.add("oculto");
-        }, 4000);
-    }
-    function toggleModo() {
-        const body = document.body;
-        const boton = document.getElementById("modo-btn");
-        const icono = boton.querySelector("i");
-
-        body.classList.toggle("dark-mode");
-
-        // Cambiar clase del ícono
-        if (body.classList.contains("dark-mode")) {
-            icono.classList.remove("fa-moon");
-            icono.classList.add("fa-sun");
-        } else {
-            icono.classList.remove("fa-sun");
-            icono.classList.add("fa-moon");
-        }
-
-        localStorage.setItem("dark-mode", body.classList.contains("dark-mode"));
-    }
-
-    window.onload = function () {
-        const modoOscuro = localStorage.getItem("dark-mode") === "true";
-        const boton = document.getElementById("modo-btn");
-        const icono = boton.querySelector("i");
-
-        if (modoOscuro) {
-            document.body.classList.add("dark-mode");
-            icono.classList.remove("fa-moon");
-            icono.classList.add("fa-sun");
-        } else {
-            icono.classList.remove("fa-sun");
-            icono.classList.add("fa-moon");
-        }
-    };
-
-</script>
-</body>
-</html>
+        <button type="submit">Enviar</button>
+    </form>
+    <div class="mensaje-exito oculto" id="mensaje-exito">
+        <p>¡Mensaje enviado! 💌</p>
+    </div>
+</section>
+{% endblock %}

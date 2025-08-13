@@ -1,0 +1,13 @@
+{% extends 'portfolio/base.html' %}
+{% block content %}
+<h1>Blog</h1>
+{% for post in posts %}
+    <div>
+        <h2><a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a></h2>
+        <p>{{ post.fecha_creacion|date:"d/m/Y H:i" }} - {{ post.autor.username }}</p>
+        <p>{{ post.contenido|truncatechars:200 }}</p>
+    </div>
+{% empty %}
+    <p>No hay entradas todavía.</p>
+{% endfor %}
+{% endblock %}
