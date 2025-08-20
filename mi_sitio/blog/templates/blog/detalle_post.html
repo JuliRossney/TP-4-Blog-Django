@@ -1,25 +1,55 @@
 {% extends 'portfolio/base.html' %}
+
 {% block content %}
-<h1>{{ post.titulo }}</h1>
-<p>{{ post.fecha_creacion|date:"d/m/Y H:i" }} - {{ post.autor.username }}</p>
-<p>{{ post.contenido }}</p>
-{% if post.imagen %}<img src="{{ post.imagen.url }}" alt="Imagen">{% endif %}
-{% if post.archivo %}<a href="{{ post.archivo.url }}">Descargar archivo</a>{% endif %}
+<div class="post-detalle">
+    <h1>{{ post.titulo }}</h1>
+    <p class="post-meta">
+        {{ post.fecha_creacion|date:"d/m/Y H:i" }} — <span>{{ post.autor.username }}</span>
+    </p>
 
-<h2>Comentarios</h2>
-{% for comentario in post.comentarios.all %}
-    <div>
-        <strong>{{ comentario.autor }}</strong> ({{ comentario.fecha_creacion|date:"d/m/Y H:i" }}):
-        <p>{{ comentario.contenido }}</p>
+    {% if post.imagen %}
+        <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="post-imagen">
+    {% endif %}
+
+    <div class="post-contenido">
+        {{ post.contenido|linebreaks }}
     </div>
-{% empty %}
-    <p>No hay comentarios todavía.</p>
-{% endfor %}
 
-<h3>Agregar comentario</h3>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Comentar</button>
-</form>
+    {% if post.archivo %}
+        <a href="{{ post.archivo.url }}" download class="post-archivo">📂 Descargar archivo</a>
+    {% endif %}
+</div>
+
+<hr>
+
+<!-- SECCIÓN DE COMENTARIOS -->
+<div class="comentarios">
+    <h2>Comentarios</h2>
+
+    {% if post.comentario_set.all %}
+        <ul>
+            {% for comentario in post.comentario_set.all %}
+                <li>
+                    <strong>{{ comentario.autor }}</strong> — {{ comentario.fecha_creacion|date:"d/m/Y H:i" }}<br>
+                    {{ comentario.texto }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay comentarios todavía. ¡Sé el primero en comentar!</p>
+    {% endif %}
+</div>
+
+<hr>
+
+<!-- FORMULARIO DE NUEVO COMENTARIO -->
+<div class="form-comentario">
+    <h2>Deja un comentario</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Publicar</button>
+    </form>
+</div>
+
 {% endblock %}

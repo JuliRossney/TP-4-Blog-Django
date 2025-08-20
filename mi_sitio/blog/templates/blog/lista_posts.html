@@ -1,13 +1,34 @@
 {% extends 'portfolio/base.html' %}
 {% block content %}
-<h1>Blog</h1>
-{% for post in posts %}
-    <div>
-        <h2><a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a></h2>
-        <p>{{ post.fecha_creacion|date:"d/m/Y H:i" }} - {{ post.autor.username }}</p>
-        <p>{{ post.contenido|truncatechars:200 }}</p>
-    </div>
-{% empty %}
-    <p>No hay entradas todavía.</p>
-{% endfor %}
+<h1 class="blog-titulo">Blog</h1>
+
+<div class="posts-container">
+    {% for post in posts %}
+        <div class="post-card">
+            <div class="post-contenido-flex">
+                {% if post.imagen %}
+                    <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="post-imagen">
+                {% endif %}
+
+                <div class="post-texto">
+                    <h2 class="post-titulo">
+                        <a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a>
+                    </h2>
+                    <p class="post-meta">
+                        {{ post.fecha_creacion|date:"d/m/Y H:i" }} — <span>{{ post.autor.username }}</span>
+                    </p>
+
+                    <p class="post-contenido">{{ post.contenido|truncatechars:200 }}</p>
+
+                    {% if post.archivo %}
+                        <a href="{{ post.archivo.url }}" download class="post-archivo">📂 Descargar archivo</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    {% empty %}
+        <p>No hay entradas todavía.</p>
+    {% endfor %}
+</div>
 {% endblock %}
