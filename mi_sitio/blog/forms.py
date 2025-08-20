@@ -4,7 +4,8 @@ from .models import Comentario
 class ComentarioForm(forms.ModelForm):
     class Meta:
         model = Comentario
-        fields = ['autor', 'contenido']
+        fields = ['autor', 'texto']
         widgets = {
-            'contenido': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Escribí tu comentario...'}),
+            'texto': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Escribe tu comentario...'}),
+            'autor': forms.TextInput(attrs={'placeholder': 'Tu nombre'}),
         }

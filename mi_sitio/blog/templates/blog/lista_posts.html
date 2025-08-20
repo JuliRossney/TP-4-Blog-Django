@@ -5,28 +5,47 @@
 <div class="posts-container">
     {% for post in posts %}
         <div class="post-card">
-            <div class="post-contenido-flex">
-                {% if post.imagen %}
-                    <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="post-imagen">
-                {% endif %}
+            <h2 class="post-titulo">{{ post.titulo }}</h2>
+            <p class="post-meta">
+                {{ post.fecha_creacion|date:"d/m/Y H:i" }} — 
+                <span>{{ post.autor.username }}</span>
+            </p>
 
-                <div class="post-texto">
-                    <h2 class="post-titulo">
-                        <a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a>
-                    </h2>
-                    <p class="post-meta">
-                        {{ post.fecha_creacion|date:"d/m/Y H:i" }} — <span>{{ post.autor.username }}</span>
-                    </p>
+            {% if post.imagen %}
+                <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="post-imagen">
+            {% endif %}
 
-                    <p class="post-contenido">{{ post.contenido|truncatechars:200 }}</p>
+            <p class="post-contenido">{{ post.contenido }}</p>
 
-                    {% if post.archivo %}
-                        <a href="{{ post.archivo.url }}" download class="post-archivo">📂 Descargar archivo</a>
-                    {% endif %}
+            {% if post.archivo %}
+                <a href="{{ post.archivo.url }}" download class="post-archivo">📂 Descargar archivo</a>
+            {% endif %}
+
+            <hr>
+
+            <div class="comentarios-container" style="display:flex; gap:20px;">
+                <!-- Lista de comentarios -->
+                <div style="flex:2;">
+                    <h4>Comentarios:</h4>
+                    {% for comentario in post.comentario_set.all %}
+                        <p><b>{{ comentario.usuario.username }}</b>: {{ comentario.texto }}</p>
+                    {% empty %}
+                        <p>No hay comentarios todavía.</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Formulario de comentarios -->
+                <div style="flex:1;">
+                    <h4>Agregar comentario:</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="hidden" name="post_id" value="{{ post.id }}">
+                        <button type="submit">Comentar</button>
+                    </form>
                 </div>
             </div>
         </div>
-
     {% empty %}
         <p>No hay entradas todavía.</p>
     {% endfor %}
