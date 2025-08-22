@@ -1,47 +1,51 @@
 {% extends 'portfolio/base.html' %}
 {% block content %}
-<h1 class="blog-titulo">Blog</h1>
-
+<h1 class="blog-titulo-principal">Últimos Posts del Blog</h1>
 <div class="posts-container">
     {% for post in posts %}
         <div class="post-card">
-            <h2 class="post-titulo">{{ post.titulo }}</h2>
-            <p class="post-meta">
-                {{ post.fecha_creacion|date:"d/m/Y H:i" }} — 
-                <span>{{ post.autor.username }}</span>
-            </p>
-
-            {% if post.imagen %}
-                <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="post-imagen">
-            {% endif %}
-
-            <p class="post-contenido">{{ post.contenido }}</p>
-
-            {% if post.archivo %}
-                <a href="{{ post.archivo.url }}" download class="post-archivo">📂 Descargar archivo</a>
-            {% endif %}
-
-            <hr>
-
-            <div class="comentarios-container" style="display:flex; gap:20px;">
-                <!-- Lista de comentarios -->
-                <div style="flex:2;">
-                    <h4>Comentarios:</h4>
-                    {% for comentario in post.comentario_set.all %}
-                        <p><b>{{ comentario.usuario.username }}</b>: {{ comentario.texto }}</p>
-                    {% empty %}
-                        <p>No hay comentarios todavía.</p>
-                    {% endfor %}
+            <div class="post-contenido-flex">
+                {% if post.imagen %}
+                    <img src="{{ post.imagen.url }}" alt="{{ post.titulo }}" class="post-imagen">
+                {% endif %}
+                <div class="post-texto">
+                    <h2 class="post-titulo">{{ post.titulo }}</h2>
+                    <p class="post-meta">
+                        {{ post.fecha_creacion|date:"d/m/Y H:i" }} — 
+                        <span>{{ post.autor.username }}</span>
+                    </p>
+                    <p class="post-contenido">{{ post.contenido }}</p>
+                    {% if post.archivo %}
+                        <a href="{{ post.archivo.url }}" download class="post-archivo">📂 Descargar archivo</a>
+                    {% endif %}
                 </div>
-
+            </div>
+            <hr>
+            <div class="comentarios-container">
+                <!-- Lista de comentarios -->
+                <div class="comentarios">
+                    <h4>Comentarios:</h4>
+                    <ul>
+                    {% for comentario in post.comentarios.all %}
+                        <li>
+                            <strong>{{ comentario.autor }}</strong>: {{ comentario.texto }}
+                            <span class="comentario-fecha">
+                                {{ comentario.fecha_creacion|date:"d/m/Y H:i" }}
+                            </span>
+                        </li>
+                    {% empty %}
+                        <li>No hay comentarios todavía.</li>
+                    {% endfor %}
+                    </ul>
+                </div>
                 <!-- Formulario de comentarios -->
-                <div style="flex:1;">
+                <div class="form-comentario">
                     <h4>Agregar comentario:</h4>
                     <form method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <input type="hidden" name="post_id" value="{{ post.id }}">
-                        <button type="submit">Comentar</button>
+                        <button type="submit" class="btn-submit">Comentar</button>
                     </form>
                 </div>
             </div>

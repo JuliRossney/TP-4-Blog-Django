@@ -7,10 +7,10 @@ def lista_posts(request):
 
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
-        if form.is_valid():
+        post_id = request.POST.get("post_id")
+        if form.is_valid() and post_id:
             comentario = form.save(commit=False)
-            comentario.post_id = request.POST.get("post_id")  # a qué post pertenece
-            comentario.usuario = request.user
+            comentario.post_id = post_id
             comentario.save()
             return redirect('lista_posts')
     else:
